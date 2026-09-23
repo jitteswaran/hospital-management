@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+  <div class="page-header">
+    <h2><%= doctor ? 'Edit' : 'Add' %> Doctor</h2>
+    <a href="/doctors" class="btn btn-secondary">Back</a>
+  </div>
+  <div class="card form-card">
+    <% if (error) { %><div class="alert alert-error"><%= error %></div><% } %>
+    <form action="/doctors/<%= doctor ? 'edit/' + doctor._id : 'add' %>" method="POST">
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" name="name" value="<%= doctor?.name || '' %>" required/></div>
+        <div class="form-group"><label>Specialization</label><input type="text" name="specialization" value="<%= doctor?.specialization || '' %>" required/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Phone</label><input type="text" name="phone" value="<%= doctor?.phone || '' %>" required/></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" value="<%= doctor?.email || '' %>"/></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>Experience (years)</label><input type="number" name="experience" value="<%= doctor?.experience || '' %>"/></div>
+        <div class="form-group">
+          <label>Availability</label>
+          <select name="availability">
+            <option value="Available" <%= doctor?.availability === 'Available' ? 'selected' : '' %>>Available</option>
+            <option value="Unavailable" <%= doctor?.availability === 'Unavailable' ? 'selected' : '' %>>Unavailable</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary"><%= doctor ? 'Update' : 'Add' %> Doctor</button>
+    </form>
+  </div>
+</body>
+</html>

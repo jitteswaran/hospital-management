@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <%- include('../layout') %>
+  <div class="page-header">
+    <h2>Dashboard</h2>
+    <span>Welcome back, <%= user.name %>!</span>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card blue">
+      <i class="fas fa-user-injured"></i>
+      <div><h3><%= stats.totalPatients %></h3><p>Total Patients</p></div>
+    </div>
+    <div class="stat-card green">
+      <i class="fas fa-user-md"></i>
+      <div><h3><%= stats.totalDoctors %></h3><p>Total Doctors</p></div>
+    </div>
+    <div class="stat-card purple">
+      <i class="fas fa-calendar-check"></i>
+      <div><h3><%= stats.totalAppointments %></h3><p>Total Appointments</p></div>
+    </div>
+    <div class="stat-card orange">
+      <i class="fas fa-clock"></i>
+      <div><h3><%= stats.scheduledAppointments %></h3><p>Scheduled</p></div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>Recent Appointments</h3>
+    <table class="table">
+      <thead>
+        <tr><th>Patient</th><th>Doctor</th><th>Date</th><th>Time</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <% recentAppointments.forEach(a => { %>
+        <tr>
+          <td><%= a.patient?.name || 'N/A' %></td>
+          <td><%= a.doctor?.name || 'N/A' %> (<%= a.doctor?.specialization || '' %>)</td>
+          <td><%= new Date(a.date).toLocaleDateString() %></td>
+          <td><%= a.time %></td>
+          <td><span class="badge badge-<%= a.status.toLowerCase() %>"><%= a.status %></span></td>
+        </tr>
+        <% }) %>
+        <% if (!recentAppointments.length) { %>
+        <tr><td colspan="5" style="text-align:center; color:#888;">No appointments yet</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

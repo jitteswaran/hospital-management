@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <div class="page-header">
+    <h2><i class="fas fa-user-injured"></i> Patients</h2>
+    <a href="/patients/add" class="btn btn-primary"><i class="fas fa-plus"></i> Add Patient</a>
+  </div>
+  <div class="card">
+    <table class="table">
+      <thead>
+        <tr><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>Blood Group</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <% patients.forEach(p => { %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= p.age %></td>
+          <td><%= p.gender %></td>
+          <td><%= p.phone %></td>
+          <td><span class="badge badge-scheduled"><%= p.bloodGroup || 'N/A' %></span></td>
+          <td>
+            <a href="/patients/edit/<%= p._id %>" class="btn btn-sm btn-secondary">Edit</a>
+            <form action="/patients/delete/<%= p._id %>" method="POST" style="display:inline">
+              <button class="btn btn-sm btn-danger" onclick="return confirm('Delete this patient?')">Delete</button>
+            </form>
+          </td>
+        </tr>
+        <% }) %>
+        <% if (!patients.length) { %>
+        <tr><td colspan="6" style="text-align:center; color:#888;">No patients found</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

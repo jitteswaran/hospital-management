@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+  <% if (locals.user) { %>
+  <nav class="sidebar">
+    <div class="sidebar-logo">
+      <i class="fas fa-hospital"></i>
+      <span>MediCare</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="<%= title.includes('Dashboard') ? 'active' : '' %>"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+      <li><a href="/patients" class="<%= title.includes('Patient') ? 'active' : '' %>"><i class="fas fa-user-injured"></i> Patients</a></li>
+      <li><a href="/doctors" class="<%= title.includes('Doctor') ? 'active' : '' %>"><i class="fas fa-user-md"></i> Doctors</a></li>
+      <li><a href="/appointments" class="<%= title.includes('Appointment') ? 'active' : '' %>"><i class="fas fa-calendar-check"></i> Appointments</a></li>
+    </ul>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <i class="fas fa-user-circle"></i>
+        <span><%= user.name %></span>
+        <small><%= user.role %></small>
+      </div>
+      <a href="/logout" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+  </nav>
+  <div class="main-content">
+  <% } %>
+    <%- body %>
+  <% if (locals.user) { %>
+  </div>
+  <% } %>
+</body>
+</html>
